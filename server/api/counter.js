@@ -1,26 +1,33 @@
 const express = require("express");
 const app = express.Router();
 const User = require('../database/userbase');
-app.get('/count', async (req, res) => {
-    try {     
-        if (!req.user) {
-            // If req.user does not exist, return JSON with count var as 0
-            return res.json({ count: 0 });
-        } else {
-            // If req.user exists, check if there is any entry in userdata with the username matching req.user.username
-            const userEntry = await User.findOne({ username: req.user.username });
-            
-            // If there is an entry for the user, set count to 2, otherwise set it to 1
-            const count = userEntry ? 2 : 1;
-            
-            // Return count as JSON
-            return res.json({ count });
-        }
-    } catch (error) {
-        // Handle any errors
-        console.error(error);
-        return res.status(500).json({ error: 'Internal Server Error' });
-    }
+
+app.post('/user/data', (req, res) => {
+    // Extract data from request body
+    const { nickname, gender, typeofperson, contactNumber } = req.body;
+
+    // Create a new user entry using the Mongoose model
+    const newUser = new User({
+
+        nickname,
+        gender,
+        typeofperson,
+        contactNumber,
+        user:req.user.username
+    });
+
+    // Save the new user entry to the database
+    newUser.save()
+        .then(savedUser => {
+            console.log('User created:', savedUser);
+            // Redirect to the specified URL after the entry is created
+            res.redirect('http://localhost:5173/');
+        })
+        .catch(error => {
+            // If an error occurs during the process, log the error and send an error response
+            console.error('Error creating user:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
 
-module.exports =app;
+module.exports = app;

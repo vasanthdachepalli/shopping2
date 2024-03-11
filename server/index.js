@@ -25,9 +25,7 @@ const limiter = rateLimit({
 app.use(limiter)
 
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(express.json()); 
 app.use(express.static(__dirname+"/assets"));
 
 app.use(session({
@@ -132,7 +130,7 @@ app.get("/auth/google/login",
             return res.json({ count: 0 });
         } else {
             // If req.user exists, check if there is any entry in userdata with the username matching req.user.username
-            const userEntry = await Userbase.findOne({ username: req.user.username });
+            const userEntry = await Userbase.findOne({ user: req.user.username });
             
             // If there is an entry for the user, set count to 2, otherwise set it to 1
             const count = userEntry ? 2 : 1;
@@ -146,6 +144,7 @@ app.get("/auth/google/login",
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+app.use('/api',require('./api/counter'))
 app.listen(8080, function() {
     console.log("Server started on port 8080.");
   });

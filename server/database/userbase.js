@@ -3,7 +3,8 @@ const userschema = new mongoose.Schema({
     user:String,
     gender:String,
     typeofperson:String,
-    nickname:String
+    nickname:String,
+    contactNumber:Number
 
 });
 const model = new mongoose.model("user_data",userschema);
