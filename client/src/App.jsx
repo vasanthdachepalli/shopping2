@@ -11,9 +11,12 @@ function App() {
 
   const getUser = async () => {
     try {
-      const url = `${process.env.REACT_APP_API_URL}/api/count`;
-      const { data } = await axios.get(url);
+      const url = `http://localhost:8080/api/count`;
+      const { data } = await axios.get(url, {
+        withCredentials: true
+      });
       setUser(data.count);
+     
     } catch (err) {
       console.log(err);
     }
