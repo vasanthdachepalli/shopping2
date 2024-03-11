@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config(); // Load environment variables
 const mongoose = require('mongoose');
 const path = require("path");
 const session = require('express-session');
@@ -9,6 +10,9 @@ const bodyParser = require("body-parser");
 const rateLimit = require('express-rate-limit');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
+const User = require('./database/user');
+
+console.log(process.env.CLIENT_SECRET)
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
 	limit: 10000, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -49,7 +53,7 @@ app.use(session({
   passport.use(new GoogleStrategy({
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:3005/auth/google/login",
+      callbackURL: "http://localhost:8080/auth/google/login",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     function(accessToken, refreshToken, profile, cb) {
@@ -70,15 +74,11 @@ app.use(session({
 app.get("/auth/google/login",
   passport.authenticate('google', { failureRedirect: "/login" }),
   function(req, res) {
-    // Successful authentication, redirect to secrets.
-    user_id.countDocuments({tag:{$eq:req.user.username}})
-    .then(count =>{
-      res.json(count);
-    })
- 
+    // Successful authentication, redirect to react parent code.
+    res.send('http://localhost:3000/')
   });
 
 
-app.listen(3005, function() {
-    console.log("Server started on port 3005.");
+app.listen(8080, function() {
+    console.log("Server started on port 8080.");
   });
