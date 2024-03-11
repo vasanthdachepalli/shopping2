@@ -78,7 +78,7 @@ app.get("/auth/google/login",
     res.send('http://localhost:3000/')
   });
 
-
+app.use("/api",require('./api/counter'));
 app.listen(8080, function() {
     console.log("Server started on port 8080.");
   });

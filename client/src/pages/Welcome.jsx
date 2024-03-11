@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, Navigate } from 'react-router-dom';
+import {  Navigate } from 'react-router-dom';
 
 const FormComponent = () => {
     const [formData, setFormData] = useState({
@@ -9,7 +9,6 @@ const FormComponent = () => {
         contactNumber: '',
     });
 
-    const history = useHistory();
 
     const handleSubmit = async (event) => {
         event.preventDefault();

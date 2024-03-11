@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+
 import styles from "./styles.module.css";
 
 function Login() {
 	const googleAuth = () => {
+		
 		window.open(
-			`${process.env.REACT_APP_API_URL}/auth/google/callback`,
+			`http://localhost:8080/auth/google/login`,
 			"_self"
 		);
 	};
@@ -21,9 +22,7 @@ function Login() {
 						<img src="./images/google.png" alt="google icon" />
 						<span>Sing in with Google</span>
 					</button>
-					<p className={styles.text}>
-						New Here ? <Link to="/signup">Sing Up</Link>
-					</p>
+					
 				</div>
 			</div>
 		</div>

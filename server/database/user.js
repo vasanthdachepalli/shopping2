@@ -7,5 +7,5 @@ const userschema = new mongoose.Schema({
 });
 userschema.plugin(passportLocalMongoose);
 userschema.plugin(findOrCreate);
-const model = new mongoose.model("user_data",userschema);
+const model = new mongoose.model("user",userschema);
 module.exports = model;

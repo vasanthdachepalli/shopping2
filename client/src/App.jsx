@@ -14,6 +14,7 @@ function App() {
       const url = `${process.env.REACT_APP_API_URL}/api/count`;
       const { data } = await axios.get(url);
       setUser(data.count);
+      console.log(user);
     } catch (err) {
       console.log(err);
     }
