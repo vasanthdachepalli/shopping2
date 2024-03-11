@@ -2,7 +2,7 @@ const express = require("express");
 const app = express.Router();
 const User = require('../database/userbase');
 app.get('/count', async (req, res) => {
-    try {
+    try {     
         if (!req.user) {
             // If req.user does not exist, return JSON with count var as 0
             return res.json({ count: 0 });

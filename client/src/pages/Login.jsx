@@ -10,23 +10,22 @@ function Login() {
 		);
 	};
 	return (
-		<div className={styles.container}>
-			<h1 className={styles.heading}>Log in Form</h1>
-			<div className={styles.form_container}>
-				<div className={styles.left}>
-					<img className={styles.img} src="./images/login.jpg" alt="login" />
-				</div>
-				<div className={styles.right}>
-					<h2 className={styles.from_heading}>Members Log in</h2>
-					<button className={styles.google_btn} onClick={googleAuth}>
-						<img src="./images/google.png" alt="google icon" />
-						<span>Sing in with Google</span>
-					</button>
-					
-				</div>
-			</div>
+		<div className={styles.maincontainer}>
+        <div className={styles.container}>
+            <div className={styles.ring}>
+                <i style={{'--clr': '#00ff0a'}}></i>
+                <i style={{'--clr': '#ff0057'}}></i>
+                <i style={{'--clr': '#fffd44'}}></i>
+            </div>
+            <div className={styles.login}>
+                <h2>LOGIN</h2>
+                <div className={styles.inputBx}>
+                    <button className={styles.submitBtn} onClick={googleAuth}>Sign In</button>
+                </div>
+            </div>
+        </div>
 		</div>
-	);
+    );
 }
 
 export default Login;
