@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "quick";
+}
+
+.maincontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #111;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ring {
+    position: relative;
+    width: 70vmin;
+    height: 70vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ring i {
+    position: absolute;
+    inset: 0;
+    border: 1vmin solid #fff; /* Decreased thickness */
+    border-radius: 50%; /* Ensure circular shape */
+    transition: 0.5s;
+}
+
+.ring i:nth-child(1) {
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    animation: animate 6s linear infinite;
+}
+
+.ring i:nth-child(2) {
+    border-radius: 41% 44% 56% 59% / 38% 62% 63% 37%;
+    animation: animate 4s linear infinite;
+}
+
+.ring i:nth-child(3) {
+    border-radius: 41% 44% 56% 59% / 38% 62% 63% 37%;
+    animation: animate 6s linear infinite;
+}
+
+.ring:hover i {
+    border: 3vmin solid var(--clr); /* Increased thickness on hover */
+    filter: drop-shadow(0 0 20vmin var(--clr));
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.login {
+    position: absolute;
+    width: 50vmin;
+    height: 50vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10vmin;
+}
+
+.login h2 {
+    font-size: 4vmin;
+    color: #fff;
+}
+
+.login .inputBx {
+    position: relative;
+    width: 100%;
+}
+
+.login .inputBx button {
+    width: 100%;
+    padding: 3vmin 5vmin;
+    background-color: transparent;
+    border: 0.5vmin solid #fff; /* Decreased thickness */
+    border-radius: 10vmin;
+    font-size: 3vmin;
+    color: #fff;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.login .inputBx button:hover {
+    background: #0078ff;
+    background: linear-gradient(45deg, rgb(16, 16, 5), #ff357a, rgb(16, 16, 5));
+}
