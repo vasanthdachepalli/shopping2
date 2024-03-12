@@ -1,6 +1,18 @@
 const express = require("express");
 const app = express.Router();
 const User = require('../database/userbase');
+app.get('/user/type',(req,res)=>{
+    User.find({user:req.user.username})
+    .then(doc =>{
+      
+        res.json(doc);
+    })
+    .catch(error => {
+        // If an error occurs during the process, log the error and send an error response
+        console.error('Error creating user:', error);
+        res.status(500).send('Internal Server Error');
+    })
+})
 
 app.post('/user/data', (req, res) => {
     // Extract data from request body

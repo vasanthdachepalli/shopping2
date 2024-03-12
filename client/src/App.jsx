@@ -4,8 +4,9 @@ import axios from "axios";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
+import Nav1 from './pages/Nav'
 import "./App.css";
-
+import Addproduct from './pages/Addproduct'
 function App() {
   const [user, setUser] = useState(0);
 
@@ -38,8 +39,14 @@ function App() {
 
   return (
     <div className="container">
+      <div>
+        {user === 2 && <Nav1/>}
+      </div>
       <Routes>
         <Route exact path="/" element={componentToRender} />
+      </Routes>
+      <Routes>
+        <Route exact path="/addproduct" element={<Addproduct/>} />
       </Routes>
     </div>
   );
