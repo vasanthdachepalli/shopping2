@@ -144,6 +144,7 @@ app.get("/auth/google/login",
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+app.use('/upload',require('./api/uploader'));
 app.use('/api',require('./api/counter'))
 app.listen(8080, function() {
     console.log("Server started on port 8080.");
