@@ -42,4 +42,17 @@ app.post('/user/data', (req, res) => {
         });
 });
 
+
+const orders = require('../database/orders');
+app.get('/order',(req,res)=>{
+    orders.find({})
+    .then(doc =>{
+        res.json(doc);
+    })
+    .catch(err =>{
+        console.log(err);
+    })
+})
+
+
 module.exports = app;

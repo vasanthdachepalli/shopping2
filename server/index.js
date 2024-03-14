@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 const rateLimit = require('express-rate-limit');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
+const cookieSession = require("cookie-session");
 const User = require('./database/user');
 const cors = require('cors'); 
 console.log(process.env.CLIENT_SECRET)
@@ -23,7 +24,14 @@ const limiter = rateLimit({
 
 // Apply the rate limiting middleware to all requests.
 app.use(limiter)
-
+/*
+app.use(
+	cookieSession({
+		name: "session",
+		keys: ["cyberwolve"],
+		maxAge: 24 * 60 * 60 * 100,
+	})
+);*/
 
 app.use(express.json()); 
 app.use(express.static(__dirname+"/assets"));

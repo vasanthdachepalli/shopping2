@@ -22,9 +22,10 @@ function App() {
       console.log(err);
     }
   };
-
   useEffect(() => {
     getUser();
+
+   
   }, []);
 
   let componentToRender;
@@ -46,7 +47,7 @@ function App() {
         <Route exact path="/" element={componentToRender} />
       </Routes>
       <Routes>
-        <Route exact path="/addproduct" element={<Addproduct/>} />
+        <Route exact path="/addproduct" element={user ? <Addproduct /> : <Navigate to="/" />} />
       </Routes>
     </div>
   );
