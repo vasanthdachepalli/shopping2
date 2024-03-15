@@ -68,29 +68,11 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     // Check if user exists in the database
-    User.findOne({ username: profile.id })
-      .then(user => {
-        if (user) {
-          // If user exists, return the user
-          return cb(null, user);
-        } else {
-          // If user doesn't exist, create a new user
-          const newUser = new User({
-            googleId: profile.id,
-            email: profile.email,
-            // Add any other relevant user data here
-          });
-          // Save the new user to the database
-          return newUser.save()
-            .then(newUser => {
-              // Return the newly created user
-              return cb(null, newUser);
-            });
-        }
-      })
-      .catch(err => {
-        return cb(err);
-      });
+    console.log(profile)
+    User.findOrCreate({ username: profile.id }, function (err, user) {
+      return cb(err, user);
+
+    });
   }
 ));
 
@@ -124,7 +106,7 @@ app.get("/auth/google/login",
     res.redirect('http://localhost:5173/')
   });
 
-  const Userbase = require('./database/userbase');
+  const Userbase = require('./database/data');
 
   app.get('/api/count', async (req, res) => {
     try {     
@@ -149,6 +131,9 @@ app.get("/auth/google/login",
 });
 
 app.get('/users',function(req,res){
+  if(!req.user){
+    res.json({message:'error message'})
+  }else
   res.json({userid:req.user.username});
 })
 app.use('/upload',require('./api/uploader'));
