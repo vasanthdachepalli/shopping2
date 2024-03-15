@@ -5,10 +5,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import Nav1 from './pages/Nav'
-import "./App.css";
+
 import Addproduct from './pages/Addproduct'
 import Wishlist from './pages/Wishproducts'
 import Detailed from './pages/Detailed';
+import Cart from './pages/Cart'
 function App() {
   const [user, setUser] = useState(0);
 const[userid,setuserid] = useState(null);
@@ -69,6 +70,10 @@ const[userid,setuserid] = useState(null);
         element={<Detailed user={userid}/>} // Pass all route props to SingleProduct
       />
        <Route exact path='/wishlist' element={user ? <Wishlist user={userid} /> : <Navigate to="/"/> }/>
+
+ 
+
+        <Route exact path='/cart' element={user ? <Cart/> : <Navigate to="/"/> }/>
 
         </Routes>
     </div>

@@ -58,6 +58,17 @@ app.get('/order/wishlist',(req,res)=>{
     console.log(err);
 })
 })
+cartdb = require('../database/cartlist')
+app.get('/order/cart',(req,res)=>{
+    cartdb.find({Userid: req.user.username})
+    .populate('data')
+    .then(doc =>{
+      res.json(doc);
+  })
+  .catch(err =>{
+      console.log(err);
+  })
+  })
 app.get('/singleproduct/:id',(req,res)=>{
     orders.findById(req.params.id)
     .then(doc =>{
@@ -78,5 +89,13 @@ app.get('/wish/delete/:id',(req,res)=>{
     })
 })
 
-
+app.get('/cart/delete/:id',(req,res)=>{
+    cartdb.deleteMany({Userid: req.user.username,data:req.params.id})
+    .then(()=>{
+        res.status(200).send('sucsess full')
+    })
+    .catch(()=>{
+        res.status(500).send('failed')
+    })
+})
 module.exports = app;
