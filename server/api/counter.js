@@ -47,6 +47,17 @@ app.get('/order',(req,res)=>{
         console.log(err);
     })
 })
+let wishdb = require('../database/wishlist')
+app.get('/order/wishlist',(req,res)=>{
+  wishdb.find({Userid: req.user.username})
+  .populate('data')
+  .then(doc =>{
+    res.json(doc);
+})
+.catch(err =>{
+    console.log(err);
+})
+})
 app.get('/singleproduct/:id',(req,res)=>{
     orders.findById(req.params.id)
     .then(doc =>{
@@ -56,6 +67,15 @@ app.get('/singleproduct/:id',(req,res)=>{
         console.log(err);
     })
 
+})
+app.get('/wish/delete/:id',(req,res)=>{
+    wishdb.deleteMany({Userid: req.user.username,data:req.params.id})
+    .then(()=>{
+        res.status(200).send('sucsess full')
+    })
+    .catch(()=>{
+        res.status(500).send('failed')
+    })
 })
 
 

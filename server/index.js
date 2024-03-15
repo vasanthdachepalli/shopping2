@@ -68,7 +68,7 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, cb) {
     // Check if user exists in the database
-    console.log(profile)
+    
     User.findOrCreate({ username: profile.id }, function (err, user) {
       return cb(err, user);
 

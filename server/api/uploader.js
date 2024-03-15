@@ -73,6 +73,69 @@ router.post('/update/:id',(req,res)=>{
         return res.status(400).send(error.message);
     })
 })
+let wishdb = require('../database/wishlist');
+router.post('/add/wishlist/:id',(req,res)=>{
+    wishdb.countDocuments({
+        Userid : req.user.username,
+    data: req.params.id
+    })
+    .then((count)=>{
+        console.log(count);
+        if(count === 0){
+            wishdb.create({
+                Userid : req.user.username,
+            data: req.params.id
+            })
+            .then(()=>{
+                res.status(200).send('sucsess full')
+            })
+            .catch((err)=>{
+                res.status(500).send(err);
+            })
+            
+        }
+        else{
+            res.status(200).send('already existed')
+        }
+    })
+    .catch((err)=>{
+        res.status(500).send(err);
+    })
+   
+})
+
+let carttdb = require('../database/cartlist');
+router.post('/add/cart/:id',(req,res)=>{
+    carttdb.countDocuments({
+        Userid : req.user.username,
+    data: req.params.id
+    })
+    .then((count)=>{
+        console.log(count);
+        if(count === 0){
+            carttdb.create({
+                Userid : req.user.username,
+            data: req.params.id
+            })
+            .then(()=>{
+                res.status(200).send('sucsess full')
+            })
+            .catch((err)=>{
+                res.status(500).send(err);
+            })
+
+        }
+        else{
+            res.status(200).send('already existed')
+        }
+    })
+    .catch((err)=>{
+        res.status(500).send(err);
+    })
+    
+})
+
+
 
 const giveCurrentDateTime = () => {
     const today = new Date();

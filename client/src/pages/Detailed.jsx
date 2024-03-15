@@ -36,12 +36,23 @@ const SingleProduct = (user) => {
 
     fetchData();
   }, []);
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     // Add logic to send request to backend for adding to cart
+    const response = await axios.post('http://localhost:8080/upload/add/cart/'+id, formData, {
+      withCredentials: true,
+     
+    });
+    console.log('Response:', response);
+
+
   };
 
-  const handleAddToWishlist = () => {
-    
+  const handleAddToWishlist = async () => {
+    const response = await axios.post('http://localhost:8080/upload/add/wishlist/'+id, formData, {
+        withCredentials: true,
+       
+      });
+      console.log('Response:', response);
   };
 
   
@@ -59,17 +70,10 @@ const SingleProduct = (user) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const form = new FormData();
-    for (let key in formData) {
-      if (key === 'photo' && formData[key] !== null) {
-        form.append('photo', formData[key]);
-      } else {
-        form.append(key, formData[key]);
-      }
-    }
+   
 
     try {
-      console.log(form);
+      
       const response = await axios.post('http://localhost:8080/upload/update/'+id, formData, {
         withCredentials: true,
        
@@ -104,7 +108,7 @@ const SingleProduct = (user) => {
             <div className="product-description">
               <p>{product.productDescription}</p>
             </div>
-            {user.user === product.Sellerid &&(
+            {user.user !== product.Sellerid &&(
             <div className="action-buttons">
               <button onClick={handleAddToWishlist}>Add to Wishlist</button>
               <button onClick={handleAddToCart}>Add to Cart</button>
