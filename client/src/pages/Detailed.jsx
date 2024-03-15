@@ -104,10 +104,11 @@ const SingleProduct = (user) => {
             <div className="product-description">
               <p>{product.productDescription}</p>
             </div>
+            {user.user === product.Sellerid &&(
             <div className="action-buttons">
               <button onClick={handleAddToWishlist}>Add to Wishlist</button>
               <button onClick={handleAddToCart}>Add to Cart</button>
-            </div>
+            </div>)};
           </div>
 
           <div>
