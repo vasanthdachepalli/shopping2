@@ -53,6 +53,16 @@ app.get('/order',(req,res)=>{
         console.log(err);
     })
 })
+app.get('/singleproduct/:id',(req,res)=>{
+    orders.findById(req.params.id)
+    .then(doc =>{
+        res.json(doc);
+    })
+    .catch(err =>{
+        console.log(err);
+    })
+
+})
 
 
 module.exports = app;

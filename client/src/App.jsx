@@ -7,9 +7,11 @@ import Welcome from "./pages/Welcome";
 import Nav1 from './pages/Nav'
 import "./App.css";
 import Addproduct from './pages/Addproduct'
+
+import Detailed from './pages/Detailed';
 function App() {
   const [user, setUser] = useState(0);
-
+const[userid,setuserid] = useState(null);
   const getUser = async () => {
     try {
       const url = `http://localhost:8080/api/count`;
@@ -22,9 +24,22 @@ function App() {
       console.log(err);
     }
   };
+
+  const getUserid = async () => {
+    try {
+      const url = `http://localhost:8080/users`;
+      const response = await axios.get(url, {
+        withCredentials: true
+      });
+      setuserid(response.data.userid);
+     console.log( response.data.userid)
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     getUser();
-
+    getUserid();
    
   }, []);
 
@@ -35,7 +50,7 @@ function App() {
   } else if (user === 1) {
     componentToRender = <Welcome />;
   } else {
-    componentToRender = <Home />;
+    componentToRender = <Home user={userid}/>;
   }
 
   return (
@@ -45,10 +60,16 @@ function App() {
       </div>
       <Routes>
         <Route exact path="/" element={componentToRender} />
-      </Routes>
-      <Routes>
+    
         <Route exact path="/addproduct" element={user ? <Addproduct /> : <Navigate to="/" />} />
-      </Routes>
+    
+        <Route
+        path="/product/:id"
+ 
+        element={<Detailed user={userid}/>} // Pass all route props to SingleProduct
+      />
+       
+        </Routes>
     </div>
   );
 }
