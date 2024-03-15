@@ -21,9 +21,7 @@ const FormComponent = () => {
                 typeofperson: formData.typeofperson,
                 contactNumber: formData.contactNumber,
             }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+              
                 withCredentials: true,
             });
     
