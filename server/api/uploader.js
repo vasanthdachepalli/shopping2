@@ -54,6 +54,25 @@ router.post("/", upload.single("photo"), async (req, res) => {
         return res.status(400).send(error.message);
     }
 });
+router.post('/update/:id',(req,res)=>{
+   
+    order.findByIdAndUpdate(req.params.id,{
+        $set:{
+            productName: req.body.productName,
+            productDescription: req.body.productDescription,
+            brandName: req.body.brandName,
+            category: req.body.category,
+            cost: req.body.cost,
+            shippingDays: req.body.shippingDays
+        }
+    })
+    .then(()=>{
+        res.status(200).send('updated suuccfully')
+    })
+    .catch( (error)=> {
+        return res.status(400).send(error.message);
+    })
+})
 
 const giveCurrentDateTime = () => {
     const today = new Date();
