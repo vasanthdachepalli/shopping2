@@ -7,6 +7,8 @@ import Welcome from "./pages/Welcome";
 import Nav1 from './pages/Nav'
 import "./App.css";
 import Addproduct from './pages/Addproduct'
+
+import Detailed from './pages/Detailed';
 function App() {
   const [user, setUser] = useState(0);
 
@@ -45,10 +47,16 @@ function App() {
       </div>
       <Routes>
         <Route exact path="/" element={componentToRender} />
-      </Routes>
-      <Routes>
+    
         <Route exact path="/addproduct" element={user ? <Addproduct /> : <Navigate to="/" />} />
-      </Routes>
+    
+        <Route
+        path="/product/:id"
+ 
+        element={<Detailed />} // Pass all route props to SingleProduct
+      />
+       
+        </Routes>
     </div>
   );
 }

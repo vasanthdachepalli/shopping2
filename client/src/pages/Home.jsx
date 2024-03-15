@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link
 import axios from 'axios';
 import '../styles/ProductCards.css'; // Import CSS file for styling
 
@@ -11,7 +11,6 @@ const ProductCards = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:8080/api/order');
-        console.log(response.data)
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching product data:', error);
@@ -45,15 +44,17 @@ const ProductCards = () => {
         <div className="error-message">Error fetching products. Please try again later.</div>
       ) : (
         filteredProducts.map((product, index) => (
-          <Link
-            to={{
-              pathname: `/product/${index}`,
-              state: { product }
-            }}
+          <div
             key={index}
             className="card-link"
           >
-            <div className="card">
+            <Link 
+              to={{ 
+                pathname: `/product/${product._id}`,
+                state: { product1:product} // Pass product object as state
+              }} 
+              className="card"
+            >
               <img src={product.photo} alt="Product" className="card-image" />
               <div className="card-details">
                 <h3 className="product-name">{product.productName}</h3>
@@ -63,8 +64,8 @@ const ProductCards = () => {
                   <span className="tag">{product.brandName}</span>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          </div>
         ))
       )}
     </div>
