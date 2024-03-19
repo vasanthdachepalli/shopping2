@@ -20,7 +20,9 @@ const Navbar = () => {
   
       fetchUserType();
     }, []);
-  
+   const logout = async function(){
+    window.open(`http://localhost:8080/auth/logout`, "_self");
+   }
     return (
       <nav className="navbar">
         <div className="navbar-left">
@@ -39,6 +41,7 @@ const Navbar = () => {
                 <Link to="/profile">Profile</Link>
                 <Link to="/preferences">Preferences</Link>
                 {userType === 'seller' && <Link to="/myorders">My Orders</Link>}
+                <div onClick={logout}>logout</div>
               </div>
             </li>
           </ul>

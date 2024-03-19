@@ -77,33 +77,30 @@ passport.use(new GoogleStrategy({
 ));
 
 
-/*
-passport.use(
-	new GoogleStrategy(
-		{
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:8080/auth/google/login",
-      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-      scope: ["profile", "email"] 
-		},
-		function (accessToken, refreshToken, profile, callback) {
-			callback(null, profile);
-		}
-	)
-);
-*/
+
 
   app.get("/auth/google",
   passport.authenticate("google", ["profile", "email"])
 );
+
+app.get("/auth/logout", (req, res) => {
+	req.logout(function(err) {
+    if (err) {
+        // Handle error
+        console.error(err);
+        return next(err);
+    }
+    // Redirect to the client URL after successful logout
+    res.redirect(process.env.CLIENT_URL);
+});
+});
 
 app.get("/auth/google/login",
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     
     // Successful authentication, redirect to react parent code.
-    res.redirect('http://localhost:5173/')
+    res.redirect(process.env.CLIENT_URL)
   });
 
   const Userbase = require('./database/data');
